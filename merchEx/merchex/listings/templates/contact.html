@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact
+{% endblock title %}
+
+{% block content %}
+<article>
+    <h1>Formulaire de contact</h1>
+    <p>Bonjour {{prenom}}</p>
+    <p>Aujourd'hui nous sommes le : {{date|date:"d F Y"}}</p>
+</article>
+{% endblock content %}

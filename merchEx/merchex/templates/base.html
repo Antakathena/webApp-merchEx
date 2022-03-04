@@ -1,15 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MerchEx - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/resetMeyer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}
+    {% endblock extra_css %}
+    {% block extra_js %}
+    {% endblock extra_js %}
 </head>
 
 <body>
-    {% block content %}{% endblock content %}
+    <header>
+        <h1>LITReview</h1>
+        <p>Bonjour {{prenom}}</p>
+        <p>Aujourd'hui nous sommes le {{date|date:"d F Y"}}</p>
+    </header>
+    {% block content %}
+    {% for post in posts %}
+    {% include 'post.html' %}
+    {% endfor %}
+    {% endblock content %}
+    <footer></footer>
 </body>
 
 </html>
+
+<!--
+----------------
+
+Dans post.html
+
+<h2>{{ post.titre }}</h2>
+{{ post.contenu }}
+
+Dans forms.py
+
+class FormulaireContact(forms.Form):
+    nom = forms.CharField(...)
+    prenom = forms.CharField(...)
+    mail = forms.EmailField(...)
+
+    # Normalement ici des fonctions de validation / conversion
+
+Dans la vue
+   render(request, 'formulaire.html', {'form': FormulaireContact()})
+
+Dans formulaire.html 
+
+<form method='POST'>
+    {% csrf_token %}
+    <input type="hidden">LE TOKEN CSRF</input>
+    {{ form }}
+</form>
+-->
