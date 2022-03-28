@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Mes groupes préférés</h2>
+
+<h3>Les Meilleurs :</h3>
+<ul>
+    <li>{{bands.0.name}}</li>
+    <!-- nb  : dans le template , on ne met pas le numéro entre crochet comme en python -->
+</ul>
+<h3>La Liste :</h3>
+<ul>
+    {% for band in bands %}
+    <!-- convention : for singulier in pluriel -->
+    <li> {{ band.name }},</li>
+    {% endfor %}
+</ul>
+<p> J'ai donc {{bands|length}} groupes préférés. C'est
+    {% if bands|length < 5 %} peu {% else %} beaucoup {% endif %} </p>
+
+        {% endblock content %}

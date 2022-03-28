@@ -8,12 +8,25 @@ from listings.models import Band
 
 def hello(request):
     bands = Band.objects.all()
-    template = get_template("index.html")
-    page = template.render({"exemple": "coucou ! depuis views.py"})
-    return HttpResponse(page)
-    # return HttpResponse('<h1>Hello Django!<h1!>')
+    context ={
+        "bands": bands
+    }
+    print(bands[0].name)
+    return render(request, "hello.html", context)
 
-# fonction; injecter = {{}}; 
+    return HttpResponse(f"""
+    <h1> Hello Django!</h1>
+    <p>Mes groupes sont :</p>
+    <ul>
+        <li>{bands[0].name}</li>
+
+    </ul>
+    """)
+    template = get_template("hello.html")
+    page = template.render({"exemple": "coucou ! depuis views.py", "bands": bands})
+
+    return HttpResponse(page)
+
 
 def about(request):
     return HttpResponse('<h1>A propos</h1> <p>Nous adorons échanger !</p>')
@@ -23,5 +36,5 @@ def listing(request):
 
 def contact(request):
     date = datetime.today()
-    return render(request, "contact.html", context = {"prenom":"Sophie", "date": date} )
+    return render(request, "contact.html",  )
     # return HttpResponse('vue où placer le formulaire de contact')
